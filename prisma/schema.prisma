@@ -12,8 +12,10 @@ datasource db {
 
 model Equiments {
   id        String @map("_id") @id @default(uuid())
+  name      String
+  nationalKey     String  @map("national_key")  @unique
+  key       String @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  email     String   @unique
-  name      String?
+  deletedAt DateTime?
 }
