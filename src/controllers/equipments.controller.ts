@@ -1,32 +1,33 @@
-import { Controller, Get, Patch, Post, Delete } from "@nestjs/common/decorators";
+import { Controller, Get, Patch, Post, Delete, Param, Body } from "@nestjs/common/decorators";
+import { CreateEquipment, UpdateEquipment } from "src/Core/DTO/Equipment";
+import { EquipmentsUseCases } from "src/Use-cases/equiments/equipments.usecase";
 
 @Controller("api/equipments")
-
 export class EquipmentsController {
-    constructor() {}
+    constructor(private equipmentsUseCases: EquipmentsUseCases) {}
 
     @Get()
-    getEquipments(): string {
-        return "This action returns all equipments";
+    async getEquipments() {
+        return await this.equipmentsUseCases.getEquipments();
     }
 
-    @Get(":id")
-    getEquipment(): string {
-        return "This action returns a equipment";
+    @Get(':id')
+    async getEquipment(@Param('id') id: string) {
+        return await this.equipmentsUseCases.getEquipment(id);
     }
 
     @Post()
-    createEquipment(): string {
-        return "This action creates a equipment";
+    async createEquipment(@Body() equipment: CreateEquipment) {
+        return await this.equipmentsUseCases.createEquipment(equipment);
     }
 
-    @Patch(":id")
-    updateEquipment(): string {
-        return "This action updates a equipment";
+    @Patch(':id')
+    async updateEquipment(@Param('id') id: string, @Body() equipment: UpdateEquipment) {
+        return await this.equipmentsUseCases.updateEquipment(id, equipment);
     }
 
-    @Delete(":id")
-    deleteEquipment(): string {
-        return "This action deletes a equipment";
+    @Delete(':id')
+    deleteEquipment(@Param('id') id: string) {
+        return this.equipmentsUseCases.deleteEquipment(id);
     }
 }
