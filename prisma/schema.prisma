@@ -13,9 +13,53 @@ datasource db {
 model Equiments {
   id        String @map("_id") @id @default(uuid())
   name      String
-  nationalKey     String  @map("national_key")  @unique
+  model     String
+  brand     String
   key       String @unique
+  nationalKey     String  @map("national_key")  @unique
+  status    EquipmentStatus
+  typeRepair TypeRepair
+  condition String
+  description String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
+}
+
+model CareCenter {
+  id        String @map("_id") @id @default(uuid())
+  name      String
+  typeCenter   String?
+  StateId   String @db.ObjectId
+  MunicipalityId   String @db.ObjectId
+  State     States @relation(fields: [StateId], references: [id])
+  municipality     municipalities @relation(fields: [MunicipalityId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model States {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  municipalities municipalities[]
+  careCenters CareCenter[]
+}
+
+model municipalities {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  StateId   String @db.ObjectId
+  State     States @relation(fields: [StateId], references: [id])
+  careCenters CareCenter[]
+}
+
+enum EquipmentStatus {
+  active
+  inactive
+  maintenance
+}
+
+enum TypeRepair {
+  preventive
+  corrective
 }
