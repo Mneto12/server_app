@@ -1,4 +1,4 @@
-import { PrismaClient, TypeRepair } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -57,7 +57,7 @@ async function main() {
 
     console.log(municipalities)
 
-    const equipments = await prisma.equiments.createMany({
+    const equipments = await prisma.equipments.createMany({
         data: [
             {
                 name: "test",

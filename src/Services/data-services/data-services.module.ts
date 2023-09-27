@@ -1,9 +1,9 @@
 import {Module} from "@nestjs/common";
-import { MongoModule } from "src/Frameworks/mongo/mongo.module";
+import { MongoRepositoriesModule } from "src/Frameworks/data-services/mongo/repositories.mongo.module";
 
 @Module({
-    imports: [MongoModule],
-    exports: [MongoModule]
+    imports: [MongoRepositoriesModule],
+    exports: [MongoRepositoriesModule]
 })
 
 export class DataServicesModule {}

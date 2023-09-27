@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Equiments {
+model Equipments {
   id        String @map("_id") @id @default(uuid())
   name      String
   model     String

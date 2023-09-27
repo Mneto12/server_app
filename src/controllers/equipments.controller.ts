@@ -1,6 +1,7 @@
 import { Controller, Get, Patch, Post, Delete, Param, Body } from "@nestjs/common/decorators";
-import { CreateEquipment, UpdateEquipment } from "src/Core/DTO/Equipment";
+import { CreateEquipment } from "src/Core/DTO/Equipment";
 import { EquipmentsUseCases } from "src/Use-cases/equiments/equipments.usecase";
+import { Equipments } from "@prisma/client";
 
 @Controller("api/equipments")
 export class EquipmentsController {
@@ -22,7 +23,7 @@ export class EquipmentsController {
     }
 
     @Patch(':id')
-    async updateEquipment(@Param('id') id: string, @Body() equipment: UpdateEquipment) {
+    async updateEquipment(@Param('id') id: string, @Body() equipment: Partial<Equipments>) {
         return await this.equipmentsUseCases.updateEquipment(id, equipment);
     }
 

@@ -9,17 +9,6 @@ export interface CreateEquipment {
     condition: string;
 }
 
-export interface UpdateEquipment {
-    name?: string;
-    model?: string;
-    brand?: string;
-    key?: string;
-    nationalKey?: string;
-    status?: Status;
-    typeRepair?: TypeRepair;
-    condition?: string;
-}
-
 export enum Status {
     active = "active",
     inactive = "inactive",

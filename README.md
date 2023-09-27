@@ -3,7 +3,7 @@
 ## Explanation
 
 - controllers: 
-- abstracts:
+- Core:
 - helpers:
 - frameworks:
 - use-cases:
@@ -20,10 +20,16 @@ $ npm install
 
 3) Copy and paste the credentials located in the notion post
 
-4) Generate prisma client
+4) Prisma config
 
 ```bash
 $ npx prisma generate
+```
+
+then
+
+```bash
+$ npx prisma db push --force-reset && npx prisma db seed
 ```
 
 5) Run the application
@@ -38,3 +44,15 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## Docs and inspirations
+
+https://nestjs.com/
+
+https://www.prisma.io/
+
+https://betterprogramming.pub/clean-node-js-architecture-with-nestjs-and-typescript-34b9398d790f
+
+https://medium.com/@jonathan.pretre91/clean-architecture-with-nestjs-e089cef65045
+
+https://medium.com/@jonathan.pretre91/clean-architecture-with-nestjs-e089cef65045
