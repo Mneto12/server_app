@@ -5,8 +5,9 @@ import EquipmentsRepositoryInterface from "src/Core/interfaces/equipments";
 
 export class EquipmentsUseCases {
     constructor(
-        @Inject('EquipmentsRepositoryInterface') private readonly repository: EquipmentsRepositoryInterface
-        ) {}
+        @Inject('EquipmentsRepositoryInterface')
+        private readonly repository: EquipmentsRepositoryInterface
+    ) {}
   
     async getEquipments(): Promise<Equipments[]> {
         return await this.repository.getAll();
