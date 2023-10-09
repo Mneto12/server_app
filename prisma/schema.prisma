@@ -11,15 +11,19 @@ datasource db {
 }
 
 model Equipments {
-  id        String @map("_id") @id @default(uuid())
+  id        String @map("_id") @id @default(uuid()) @db.ObjectId
   name      String
-  model     String
-  brand     String
+  model     String 
+  brand     String 
   key       String @unique
-  nationalKey     String  @map("national_key")  @unique
+  nationalKey     String  @map("national_key") @unique
   status    EquipmentStatus
-  typeRepair TypeRepair
+  typeRepair TypeRepair?
   condition String
+  MedicalServiceId   String @db.ObjectId
+  CareCenterId   String @db.ObjectId
+  CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
+  MedicalService     MedicalServices @relation(fields: [MedicalServiceId], references: [id])
   description String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -27,13 +31,38 @@ model Equipments {
 }
 
 model CareCenter {
-  id        String @map("_id") @id @default(uuid())
+  id        String @map("_id") @id @default(uuid()) @db.ObjectId
   name      String
-  typeCenter   String?
+  typeCenter   Int
+  director  String?
+  MedicalService   MedicalServices[]
+  Equipments Equipments[]
   StateId   String @db.ObjectId
   MunicipalityId   String @db.ObjectId
   State     States @relation(fields: [StateId], references: [id])
   municipality     municipalities @relation(fields: [MunicipalityId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MedicalServices {
+  id        String @map("_id") @id @default(uuid()) @db.ObjectId
+  service   String
+  floor     Int
+  Equipments Equipments[]
+  CareCenterId   String @db.ObjectId
+  CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Operator {
+  id        String @map("_id") @id @default(uuid()) @db.ObjectId
+  name      String
+  nationalId     String? @unique @map("national_id")
+  phoneNumber  String? @unique
+  email     String? @unique
+  company   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -54,12 +83,19 @@ model municipalities {
 }
 
 enum EquipmentStatus {
-  active
-  inactive
-  maintenance
+  operative
+  inoperative
+}
+
+enum condition {
+  good
+  regular
+  bad
 }
 
 enum TypeRepair {
   preventive
   corrective
+  technical_leave
+  technical_revision
 }

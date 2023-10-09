@@ -57,33 +57,6 @@ async function main() {
 
     console.log(municipalities)
 
-    const equipments = await prisma.equipments.createMany({
-        data: [
-            {
-                name: "test",
-                model: "test",
-                brand: "test",
-                key: "abc123",
-                nationalKey: "XS12345",
-                status: "active",
-                typeRepair: 'corrective',
-                condition: 'good',
-            },
-            {
-                name: "test",
-                model: "test",
-                brand: "test",
-                key: "abc1234",
-                nationalKey: "XS12346",
-                status: "active",
-                typeRepair: 'corrective',
-                condition: 'good',
-            }
-        ],
-    })
-
-    console.log(equipments)
-
     const municipalitiesId = await prisma.municipalities.findMany({
         where: {StateId: stateId.id}
     })
@@ -91,14 +64,15 @@ async function main() {
     const careCenters = await prisma.careCenter.createMany({
         data: [
             {
-                name: "test",
-                typeCenter: "test",
+                name: "SERVICIO AUTÓNOMO HOSPITAL UNIVERSITARIO DE MARACAIBO",
+                typeCenter: 4,
+                director: "Dr. Pedro Iturbe",
                 StateId: stateId.id,
                 MunicipalityId: municipalitiesId[0].id,
             },
             {
-                name: "test2",
-                typeCenter: "test2",
+                name: "HOSPITAL GENERAL DEL SUR Dr. PEDRO ITURBE",
+                typeCenter: 3,
                 StateId: stateId.id,
                 MunicipalityId: municipalitiesId[1].id,
             },
@@ -106,6 +80,56 @@ async function main() {
     })
 
     console.log(careCenters)
+
+    const medicalServices = await prisma.medicalServices.createMany({
+        data: [
+            {
+                service: "Cirugía",
+                floor: 2,
+                CareCenterId: careCenters[0].id,
+            },
+            {
+                service: "Cirugía",
+                floor: 4,
+                CareCenterId: careCenters[1].id,
+            }
+        ]
+    })
+
+    console.log(medicalServices)
+
+    const careCenterId = await prisma.careCenter.findMany({
+        where: {StateId: stateId[0].id}
+    })
+
+    const equipments = await prisma.equipments.createMany({
+        data: [
+            {
+                name: "BOMBA DE INFUSIÓN",
+                model: "TE-171",
+                brand: "TERUMO",
+                key: "1203000-141",
+                nationalKey: "10001536",
+                status: "operative",
+                condition: 'good',
+                MedicalServiceId: medicalServices[0].id,
+                CareCenterId: careCenterId[0].id,
+            },
+            {
+                name: "BOMBA DE INFUSIÓN",
+                model: "TE-171",
+                brand: "TERUMO",
+                key: "1203000-141",
+                nationalKey: "10001536",
+                status: "operative",
+                condition: 'good',
+                MedicalServiceId: medicalServices[1].id,
+                CareCenterId: careCenterId[1].id,
+            }
+        ],
+    })
+
+    console.log(equipments)
 }
 
 main()
