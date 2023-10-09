@@ -2,7 +2,6 @@ import { Equipments, PrismaClient } from "@prisma/client";
 import { CreateEquipment } from "src/Core/DTO/Equipment";
 import EquipmentsRepositoryInterface from "src/Core/interfaces/equipments";
 
-// @ts-ignore
 export class EquipmentRepository implements EquipmentsRepositoryInterface {
     constructor() {}
   

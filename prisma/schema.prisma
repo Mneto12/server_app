@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Equipments {
-  id        String @map("_id") @id @default(uuid()) @db.ObjectId
+  id        String @map("_id") @id @default(uuid())
   name      String
   model     String 
   brand     String 
@@ -20,18 +20,18 @@ model Equipments {
   status    EquipmentStatus
   typeRepair TypeRepair?
   condition String
-  MedicalServiceId   String @db.ObjectId
-  CareCenterId   String @db.ObjectId
+  MedicalServiceId   String
+  CareCenterId   String
+  description String?
   CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
   MedicalService     MedicalServices @relation(fields: [MedicalServiceId], references: [id])
-  description String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 }
 
 model CareCenter {
-  id        String @map("_id") @id @default(uuid()) @db.ObjectId
+  id        String @map("_id") @id @default(uuid())
   name      String
   typeCenter   Int
   director  String?
@@ -46,18 +46,18 @@ model CareCenter {
 }
 
 model MedicalServices {
-  id        String @map("_id") @id @default(uuid()) @db.ObjectId
+  id        String @map("_id") @id @default(uuid())
   service   String
   floor     Int
   Equipments Equipments[]
-  CareCenterId   String @db.ObjectId
+  CareCenterId   String
   CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Operator {
-  id        String @map("_id") @id @default(uuid()) @db.ObjectId
+  id        String @map("_id") @id @default(uuid())
   name      String
   nationalId     String? @unique @map("national_id")
   phoneNumber  String? @unique

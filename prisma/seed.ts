@@ -81,26 +81,26 @@ async function main() {
 
     console.log(careCenters)
 
+    const careCenterId = await prisma.careCenter.findMany()
+
     const medicalServices = await prisma.medicalServices.createMany({
         data: [
             {
                 service: "Cirugía",
                 floor: 2,
-                CareCenterId: careCenters[0].id,
+                CareCenterId: careCenterId[0].id,
             },
             {
                 service: "Cirugía",
                 floor: 4,
-                CareCenterId: careCenters[1].id,
+                CareCenterId: careCenterId[1].id,
             }
         ]
     })
 
     console.log(medicalServices)
 
-    const careCenterId = await prisma.careCenter.findMany({
-        where: {StateId: stateId[0].id}
-    })
+    const medicalServicesId = await prisma.medicalServices.findMany()
 
     const equipments = await prisma.equipments.createMany({
         data: [
@@ -112,18 +112,18 @@ async function main() {
                 nationalKey: "10001536",
                 status: "operative",
                 condition: 'good',
-                MedicalServiceId: medicalServices[0].id,
+                MedicalServiceId: medicalServicesId[0].id,
                 CareCenterId: careCenterId[0].id,
             },
             {
                 name: "BOMBA DE INFUSIÓN",
                 model: "TE-171",
                 brand: "TERUMO",
-                key: "1203000-141",
-                nationalKey: "10001536",
+                key: "1203000-144",
+                nationalKey: "10001400",
                 status: "operative",
-                condition: 'good',
-                MedicalServiceId: medicalServices[1].id,
+                condition: 'regular',
+                MedicalServiceId: medicalServicesId[1].id,
                 CareCenterId: careCenterId[1].id,
             }
         ],
