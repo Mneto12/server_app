@@ -4,6 +4,8 @@ import { CreateEquipment } from "src/Core/DTO/Equipment";
 export default interface EquipmentsRepositoryInterface {
     getAll(): Promise<Equipments[]>;
 
+    getAllByFilter(keys: String[], values: String[]): Promise<Equipments[]>;
+
     get(id: string): Promise<Equipments>;
 
     create(equipment: CreateEquipment): Promise<Equipments>;

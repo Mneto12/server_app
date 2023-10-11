@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Post, Delete, Param, Body } from "@nestjs/common/decorators";
+import { Controller, Get, Patch, Post, Delete, Param, Body, Query } from "@nestjs/common/decorators";
 import { CreateEquipment } from "src/Core/DTO/Equipment";
 import { EquipmentsUseCases } from "src/Use-cases/equiments/equipments.usecase";
 import { Equipments } from "@prisma/client";
@@ -10,6 +10,11 @@ export class EquipmentsController {
     @Get()
     async getEquipments() {
         return await this.equipmentsUseCases.getEquipments();
+    }
+
+    @Get('filter')
+    async getEquipmentsByFilter(@Query() query: object) {
+        return await this.equipmentsUseCases.getEquipmentsByFilter(query);
     }
 
     @Get(':id')

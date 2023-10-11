@@ -13,6 +13,13 @@ export class EquipmentsUseCases {
         return await this.repository.getAll();
     }
 
+    async getEquipmentsByFilter(query: object): Promise<Equipments[]> {
+        const keys = Object.keys(query);
+        const values = Object.values(query);
+
+        return await this.repository.getAllByFilter(keys, values);
+    }
+
     async getEquipment(id: string): Promise<Equipments> {
         return await this.repository.get(id);
     }

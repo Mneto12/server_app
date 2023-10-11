@@ -18,6 +18,24 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
         }
     }
 
+    async getAllByFilter(keys: String[], values: String[]): Promise<Equipments[]> {
+        const prisma = new PrismaClient();
+        try {
+            const where = {};
+            const equipments = await prisma.equipments.findMany({
+                where: {
+                    ...where
+                }
+            });
+
+            return equipments;
+        } catch (e) {
+            console.log(e);
+            prisma.$disconnect();
+            return e;    
+        }
+    }
+
     async get(id: string): Promise<Equipments> {
         const prisma = new PrismaClient();
         try {
