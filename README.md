@@ -56,3 +56,7 @@ https://betterprogramming.pub/clean-node-js-architecture-with-nestjs-and-typescr
 https://medium.com/@jonathan.pretre91/clean-architecture-with-nestjs-e089cef65045
 
 https://medium.com/@jonathan.pretre91/clean-architecture-with-nestjs-e089cef65045
+
+https://github.com/prisma/prisma/discussions/6801
+
+https://medium.com/@bhkfazano/quick-and-simple-error-handling-with-nestjs-fc43d8dc5f45
