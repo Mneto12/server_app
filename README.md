@@ -29,7 +29,7 @@ $ npx prisma generate
 then
 
 ```bash
-$ npx prisma db push --force-reset && npx prisma db seed
+$ npx prisma db seed
 ```
 
 5) Run the application
@@ -60,3 +60,5 @@ https://medium.com/@jonathan.pretre91/clean-architecture-with-nestjs-e089cef6504
 https://github.com/prisma/prisma/discussions/6801
 
 https://medium.com/@bhkfazano/quick-and-simple-error-handling-with-nestjs-fc43d8dc5f45
+
+https://github.com/prisma/prisma/discussions/6801
