@@ -11,7 +11,7 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
 
             return carecenter;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
@@ -28,7 +28,7 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
 
             return carecenter;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }

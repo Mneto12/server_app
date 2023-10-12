@@ -12,7 +12,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             return equipments;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
@@ -30,7 +30,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             return equipments;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
@@ -47,7 +47,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             return equipment;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
@@ -62,7 +62,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             return newEquipment;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
@@ -86,7 +86,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             return updatedEquipment;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
@@ -105,7 +105,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             return true;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
