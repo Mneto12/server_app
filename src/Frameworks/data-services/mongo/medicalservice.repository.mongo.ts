@@ -28,7 +28,7 @@ export class MedicalServiceRepository implements MedicalServicesRepositoryInterf
 
             return medicalService;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             prisma.$disconnect();
             return e;    
         }
