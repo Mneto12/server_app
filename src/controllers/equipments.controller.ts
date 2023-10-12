@@ -2,6 +2,7 @@ import { Controller, Get, Patch, Post, Delete, Param, Body, Query } from "@nestj
 import { CreateEquipment } from "src/Core/DTO/Equipment";
 import { EquipmentsUseCases } from "src/Use-cases/equiments/equipments.usecase";
 import { Equipments } from "@prisma/client";
+import { EquipmentsParamsDTO } from "src/Core/DTO/EquipmentsFilter";
 
 @Controller("api/equipments")
 export class EquipmentsController {
@@ -13,7 +14,7 @@ export class EquipmentsController {
     }
 
     @Get('filter')
-    async getEquipmentsByFilter(@Query() query: object) {
+    async getEquipmentsByFilter(@Query() query: EquipmentsParamsDTO) {
         return await this.equipmentsUseCases.getEquipmentsByFilter(query);
     }
 

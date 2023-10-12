@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from "@nestjs/common/decorators";
-import { MedicalServicesUseCases } from "src/Use-cases/MedicalService/medicalservices.usecase";
+import { MedicalServicesUseCases } from "src/Use-cases/medicalService/medicalservices.usecase";
 
 @Controller("api/medicalservices")
 export class MedicalServicesController {

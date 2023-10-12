@@ -18,10 +18,11 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
         }
     }
 
-    async getAllByFilter(keys: String[], values: String[]): Promise<Equipments[]> {
+    async getAllByFilter(avancedQuery: any): Promise<Equipments[]> {
         const prisma = new PrismaClient();
+
+        const { where, orderBy } = avancedQuery;
         try {
-            const where = {};
             const equipments = await prisma.equipments.findMany({
                 where: {
                     ...where
