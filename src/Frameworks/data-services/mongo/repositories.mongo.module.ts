@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { EquipmentRepository } from "./equipment.repository.mongo";
 import { CareCentersRepository } from "./carecenter.repository.mongo";
 import { MedicalServiceRepository } from "./medicalservice.repository.mongo";
+import { OperatorRepository } from "./operator.repository.mongo";
 
 @Module({
     providers: [EquipmentRepository, {
@@ -15,6 +16,10 @@ import { MedicalServiceRepository } from "./medicalservice.repository.mongo";
     MedicalServiceRepository, {
         provide: 'MedicalServicesRepositoryInterface',
         useClass: MedicalServiceRepository,
+    },
+    OperatorRepository, {
+        provide: 'OperatorsRepositoryInterface',
+        useClass: OperatorRepository,
     }
 ],
     exports: [
@@ -23,7 +28,9 @@ import { MedicalServiceRepository } from "./medicalservice.repository.mongo";
         CareCentersRepository,
         'CareCentersRepositoryInterface',
         MedicalServiceRepository,
-        'MedicalServicesRepositoryInterface'
+        'MedicalServicesRepositoryInterface',
+        OperatorRepository,
+        'OperatorsRepositoryInterface'
 ]
 })
 

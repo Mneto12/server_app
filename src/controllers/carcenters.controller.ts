@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from "@nestjs/common/decorators";
-import { CareCenterUseCases } from "src/Use-cases/careCenter/carecenters.usercase";
+import { CareCenterUseCases } from "src/Use-cases/careCenters/carecenters.usercase";
 
-@Controller("api/carecenter")
+@Controller("api/carecenters")
 export class CareCentersController {
     constructor(private careCenterUseCases: CareCenterUseCases) {}
 
