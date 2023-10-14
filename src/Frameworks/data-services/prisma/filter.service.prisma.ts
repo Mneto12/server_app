@@ -22,12 +22,8 @@ export default class PrismaAdvancedFilteringService implements FilterData {
             }
         });
 
-        console.log(data);
-
         orderBy = data.find((row) => row.column === 'orderBy') ? 
           this._orderByFilter(data.find((row) => row.column === 'orderBy')) : {};
-
-        console.log('orderBy', orderBy);
 
         data.forEach((row) => {
           if (
@@ -39,10 +35,14 @@ export default class PrismaAdvancedFilteringService implements FilterData {
           if(row.column === 'createdAt' || row.column === 'updatedAt') {
             const query = this._buildDateFilter(row);
             where.AND.push(query);
+
+            return
           }
   
             const query = this._buildTypesFilter(row);
             where.AND.push(query);
+
+            return
         });
 
         console.log('where', where.AND);
@@ -101,21 +101,44 @@ export default class PrismaAdvancedFilteringService implements FilterData {
     private _buildDateFilter(row: any): any {
       const { column, value } = row;
 
-      const validateRangeOrDay = /^(?!.*,)[^,].*[^,](?!,.*,$).*$/;
+      if (value.length === 21) {
+        let Range = value.split(',')
 
-      let Day
-      let Range
+        if (Range.length !== 2) throw new Error('Invalid Range Date')
 
-      validateRangeOrDay.test(value) ? Range.split(',') : Day = value;
+        let firstDate = new Date(Range[0])
+        let secondDate = new Date(Range[1])
 
+        if (isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) throw new Error('Invalid Date')
 
-      const queryObj = {
-        [column]: {
-          [clausule]: cleanValue
+        if (firstDate > secondDate) throw new Error('Invalid Range Date')
+
+        const queryObj = {
+          [column]: {
+              gte: firstDate,
+              lte: secondDate
+          }
         }
-      }
 
-      return queryObj;
+        return queryObj;
+      } else if (value.length === 10) {
+        let date = new Date(value)
+
+        if(isNaN(date.getTime())) throw new Error('Invalid Date')
+
+        const endOfDay = new Date(`${value}T23:59:59Z`)
+
+        const queryObj = {
+          [column]: {
+              gte: date,
+              lte: endOfDay
+          }
+        }
+
+        return queryObj;
+      } else {
+        throw new Error('Invalid Date')
+      }
     }
   
 }

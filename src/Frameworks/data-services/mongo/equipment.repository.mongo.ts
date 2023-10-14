@@ -21,7 +21,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
     async getAllByFilter(avancedQuery: any): Promise<Equipments[]> {
         const prisma = new PrismaClient();
 
-        const { skip, take, where } = avancedQuery;
+        const { skip, take, where, orderBy } = avancedQuery;
         try {
             const equipments = await prisma.equipments.findMany({
                 skip: skip,
@@ -30,7 +30,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
                     ...where
                 },
                 orderBy: {
-                    name: 'asc'
+                    ...orderBy
                 }
             });
 
