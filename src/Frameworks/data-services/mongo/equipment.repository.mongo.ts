@@ -5,10 +5,13 @@ import EquipmentsRepositoryInterface from "src/Core/interfaces/equipments";
 export class EquipmentRepository implements EquipmentsRepositoryInterface {
     constructor() {}
   
-    async getAll(): Promise<Equipments[]> {
+    async getAll(skip: number, take: number): Promise<Equipments[]> {
         const prisma = new PrismaClient();
         try {
-            const equipments = await prisma.equipments.findMany();
+            const equipments = await prisma.equipments.findMany({
+                skip: skip,
+                take: take
+            });
 
             return equipments;
         } catch (e) {

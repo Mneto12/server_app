@@ -9,8 +9,8 @@ export class EquipmentsController {
     constructor(private equipmentsUseCases: EquipmentsUseCases) {}
 
     @Get()
-    async getEquipments() {
-        return await this.equipmentsUseCases.getEquipments();
+    async getEquipments(@Query() pagination: any) {
+        return await this.equipmentsUseCases.getEquipments(pagination);
     }
 
     @Get('filter')

@@ -13,8 +13,13 @@ export class EquipmentsUseCases {
         private readonly filterService: FilterData
     ) {}
   
-    async getEquipments(): Promise<Equipments[]> {
-        return await this.repository.getAll();
+    async getEquipments(pagination: any): Promise<Equipments[]> {
+        let { skip, take } = pagination;
+
+        skip = !skip ? 0 : parseInt(skip);
+        take = !take ? 10 : parseInt(take);
+
+        return await this.repository.getAll(skip, take);
     }
 
     async getEquipmentsByFilter(query: any): Promise<Equipments[]> {

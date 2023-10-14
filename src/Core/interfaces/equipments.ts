@@ -2,7 +2,7 @@ import { Equipments } from "@prisma/client";
 import { CreateEquipment } from "src/Core/DTO/Equipment";
 
 export default interface EquipmentsRepositoryInterface {
-    getAll(): Promise<Equipments[]>;
+    getAll(skip: number, take: number): Promise<Equipments[]>;
 
     getAllByFilter(avancedQuery: any): Promise<Equipments[]>;
 
