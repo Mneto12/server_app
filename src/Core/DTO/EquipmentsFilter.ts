@@ -27,5 +27,8 @@ export const EquipmentParamsConstants = [
     'MedicalServiceId',
     'DescriptionId',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'skip',
+    'take',
+    'orderBy'
 ]

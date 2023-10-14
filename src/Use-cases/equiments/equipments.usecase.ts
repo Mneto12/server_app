@@ -24,7 +24,7 @@ export class EquipmentsUseCases {
         const isInvalidParam = keys.find(key => !EquipmentParamsConstants.includes(key));
         const isMissingValues = values.find(value => !value);
 
-        if(isInvalidParam || isMissingValues === '') throw new Error('Invalid Params of Equipments or Missing Values');
+        if(isInvalidParam || isMissingValues === '') throw new Error('Invalid Query of Equipments');
  
         const buildFilterDataAndValidate = this.filterService.createfilter(query);
 
