@@ -110,7 +110,7 @@ async function main() {
                 brand: "TERUMO",
                 key: "1203000-141",
                 nationalKey: "10001536",
-                status: "operative",
+                Operative: true,
                 condition: 'good',
                 MedicalServiceId: medicalServicesId[0].id,
                 CareCenterId: careCenterId[0].id,
@@ -121,7 +121,7 @@ async function main() {
                 brand: "TERUMO",
                 key: "1203000-144",
                 nationalKey: "10001400",
-                status: "operative",
+                Operative: true,
                 condition: 'regular',
                 MedicalServiceId: medicalServicesId[1].id,
                 CareCenterId: careCenterId[1].id,
@@ -132,7 +132,7 @@ async function main() {
                 brand: "MEMMERT",
                 key: "100-144",
                 nationalKey: "3619503",
-                status: "operative",
+                Operative: true,
                 condition: 'regular',
                 MedicalServiceId: medicalServicesId[1].id,
                 CareCenterId: careCenterId[1].id,
@@ -143,7 +143,7 @@ async function main() {
                 brand: "MEHECO",
                 key: "20113064",
                 nationalKey: "5168583",
-                status: "operative",
+                Operative: true,
                 condition: 'good',
                 MedicalServiceId: medicalServicesId[1].id,
                 CareCenterId: careCenterId[1].id,
@@ -154,7 +154,7 @@ async function main() {
                 brand: "Delta clave",
                 key: "600415081085",
                 nationalKey: "675565",
-                status: "inoperative",
+                Operative: false,
                 condition: 'bad',
                 MedicalServiceId: medicalServicesId[1].id,
                 CareCenterId: careCenterId[1].id,
@@ -163,6 +163,7 @@ async function main() {
     })
 
     console.log(equipments)
+
 }
 
 main()

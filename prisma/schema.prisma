@@ -17,17 +17,30 @@ model Equipments {
   brand     String 
   key       String @unique
   nationalKey     String  @map("national_key") @unique
-  status    EquipmentStatus
-  typeRepair TypeRepair?
+  Operative Boolean @default(true)    
   condition String
   MedicalServiceId   String
   CareCenterId   String
   description String?
+  Repairs Repairs[]
   CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
   MedicalService     MedicalServices @relation(fields: [MedicalServiceId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
+}
+
+model Repairs {
+  id        String @map("_id") @id @default(uuid())
+  description String
+  date      DateTime
+  TypeRepair TypeRepair
+  EquipmentsId   String
+  OperatorId   String
+  Operator     Operator @relation(fields: [OperatorId], references: [id])
+  Equipments     Equipments @relation(fields: [EquipmentsId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CareCenter {
@@ -63,6 +76,7 @@ model Operator {
   phoneNumber  String? @unique
   email     String? @unique
   company   String?
+  Repairs Repairs[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -80,11 +94,6 @@ model municipalities {
   StateId   String @db.ObjectId
   State     States @relation(fields: [StateId], references: [id])
   careCenters CareCenter[]
-}
-
-enum EquipmentStatus {
-  operative
-  inoperative
 }
 
 enum condition {
