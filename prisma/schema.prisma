@@ -13,10 +13,11 @@ datasource db {
 model Equipments {
   id        String @map("_id") @id @default(uuid())
   name      String
+  key       String @unique
   model     String 
   brand     String 
-  key       String @unique
-  nationalKey     String  @map("national_key") @unique
+  serial       String? @unique
+  nationalKey     String?  @map("national_key") @unique
   Operative Boolean @default(true)    
   condition String
   MedicalServiceId   String
@@ -48,6 +49,8 @@ model CareCenter {
   name      String
   typeCenter   Int
   director  String?
+  address String?
+  phoneNumber  String?
   MedicalService   MedicalServices[]
   Equipments Equipments[]
   StateId   String @db.ObjectId

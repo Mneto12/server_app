@@ -10,7 +10,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
         try {
             const equipments = await prisma.equipments.findMany({
                 skip: skip,
-                take: take
+                take: take,
             });
 
             return equipments;
