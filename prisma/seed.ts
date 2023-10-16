@@ -164,6 +164,56 @@ async function main() {
 
     console.log(equipments)
 
+    const operators = await prisma.operator.createMany({
+        data: [
+            {
+                name: "Juan Perez",
+                nationalId: "12345678",
+                phoneNumber: "04121234567",
+                email: "envenezuela2000@gmail.com"
+            },
+            {
+                name: "Maria Perez",
+                nationalId: "12345679",
+                phoneNumber: "04121234568"
+            },
+        ]
+    })
+
+    console.log(operators)
+
+    const equipmentsId = await prisma.equipments.findMany()
+    const operatorsId = await prisma.operator.findMany()
+
+    const repairs = await prisma.repairs.createMany({
+        data: [
+            {
+                description: "Cambio de bateria",
+                date: new Date(),
+                TypeRepair: "preventive",
+                EquipmentsId: equipmentsId[0].id,
+                OperatorId: operatorsId[0].id,
+
+            },
+            {
+                description: "Cambio de maquina",
+                date: new Date(),
+                TypeRepair: "preventive",
+                EquipmentsId: equipmentsId[2].id,
+                OperatorId: operatorsId[1].id,
+            },
+            {
+                description: "Cambio de pieza",
+                date: new Date(),
+                TypeRepair: "corrective",
+                EquipmentsId: equipmentsId[2].id,
+                OperatorId: operatorsId[0].id,
+            }
+        ]
+    })
+
+    console.log(repairs)
+
 }
 
 main()
