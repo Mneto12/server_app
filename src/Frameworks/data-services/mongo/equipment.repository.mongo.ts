@@ -51,9 +51,44 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             const equipment = await prisma.equipments.findUnique({
                 where: {
                     id: id
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    model: true,
+                    brand: true,
+                    Operative: true,
+                    key: true,
+                    serial: true,
+                    nationalKey: true,
+                    condition: true,
+                    description: true,
+                    MedicalService: {
+                        select: {
+                            service: true,
+                            floor: true,
+                        }
+                    },
+                    CareCenter: {
+                        select: {
+                            name: true,
+                            director: true,
+                        }
+                    },
+                    Repairs: {
+                        select: {
+                            id: true,
+                            description: true,
+                            date: true,
+                            TypeRepair: true
+                        }
+                    },
+                    createdAt: true,
+                    updatedAt: true
                 }
             });
 
+            // @ts-ignore
             return equipment;
         } catch (e) {
             console.error(e);

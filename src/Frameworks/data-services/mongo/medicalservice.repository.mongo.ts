@@ -23,9 +23,23 @@ export class MedicalServiceRepository implements MedicalServicesRepositoryInterf
             const medicalService = await prisma.medicalServices.findUnique({
                 where: {
                     id: id
+                },
+                select: {
+                    id: true,
+                    service: true,
+                    floor: true,
+                    CareCenter: {
+                        select: {
+                            name: true,
+                            director: true,
+                        }
+                    },
+                    createdAt: true,
+                    updatedAt: true
                 }
             });
 
+            // @ts-ignore
             return medicalService;
         } catch (e) {
             console.error(e);
