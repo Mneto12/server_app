@@ -12,6 +12,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
                 skip: skip,
                 take: take,
                 select: {
+                    id: true,
                     name: true,
                     brand: true,
                     operative: true,

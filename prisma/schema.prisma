@@ -43,6 +43,8 @@ model Repairs {
   Equipments     Equipments @relation(fields: [EquipmentsId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  deleted Boolean @default(false)
 }
 
 model CareCenter {
