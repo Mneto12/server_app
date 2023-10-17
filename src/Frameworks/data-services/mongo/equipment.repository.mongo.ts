@@ -68,7 +68,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
                     name: true,
                     model: true,
                     brand: true,
-                    Operative: true,
+                    operative: true,
                     key: true,
                     serial: true,
                     nationalKey: true,
