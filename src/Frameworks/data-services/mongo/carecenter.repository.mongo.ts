@@ -7,8 +7,23 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
     async getAll(): Promise<CareCenter[]> {
         const prisma = new PrismaClient();
         try {
-            const carecenter = await prisma.careCenter.findMany();
+            const carecenter = await prisma.careCenter.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    typeCenter: true,
+                    director: true,
+                    State: {
+                        select: {
+                            name: true
+                        }
+                    },
+                    createdAt: true,
+                    updatedAt: true
+                }
+            });
 
+            // @ts-ignore
             return carecenter;
         } catch (e) {
             console.error(e);
