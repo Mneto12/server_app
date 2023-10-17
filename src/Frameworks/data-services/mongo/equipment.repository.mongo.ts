@@ -11,8 +11,19 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             const equipments = await prisma.equipments.findMany({
                 skip: skip,
                 take: take,
+                select: {
+                    name: true,
+                    brand: true,
+                    operative: true,
+                    CareCenter: {
+                        select: {
+                            name: true,
+                        }
+                    }
+                }
             });
 
+            // @ts-ignore
             return equipments;
         } catch (e) {
             console.error(e);

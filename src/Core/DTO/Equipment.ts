@@ -3,18 +3,14 @@ export interface CreateEquipment {
     model: string;
     brand: string;
     key: string;
+    serial: string;
     nationalKey: string;
-    status: Status;
-    typeRepair?: TypeRepair;
+    Operative: boolean;
     condition: Condition;
+    description: string;
     CareCenterId: string;
     MedicalServiceId: string;
     DescriptionId?: string;
-}
-
-export enum Status {
-    operative = "operative",
-    inoperative = "inoperative",
 }
 
 export enum Condition {

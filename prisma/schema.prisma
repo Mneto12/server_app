@@ -18,17 +18,18 @@ model Equipments {
   brand     String 
   serial       String? @unique
   nationalKey     String?  @map("national_key") @unique
-  Operative Boolean @default(true)    
+  operative Boolean @default(true)    
   condition String
   MedicalServiceId   String
   CareCenterId   String
   description String?
   Repairs Repairs[]
-  CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
+  CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id], onDelete: Cascade)
   MedicalService     MedicalServices @relation(fields: [MedicalServiceId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
+  deleted Boolean @default(false)
 }
 
 model Repairs {
@@ -39,7 +40,7 @@ model Repairs {
   EquipmentsId   String
   OperatorId   String
   Operator     Operator @relation(fields: [OperatorId], references: [id])
-  Equipments     Equipments @relation(fields: [EquipmentsId], references: [id])
+  Equipments     Equipments @relation(fields: [EquipmentsId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -67,7 +68,7 @@ model MedicalServices {
   floor     Int
   Equipments Equipments[]
   CareCenterId   String
-  CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id])
+  CareCenter     CareCenter @relation(fields: [CareCenterId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
