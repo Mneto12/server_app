@@ -18,10 +18,3 @@ export enum Condition {
     regular = "regular",
     bad = "bad",
 }
-
-export enum TypeRepair {
-    preventive = "preventive",
-    corrective = "corrective",
-    technical_leave = "technical_leave",
-    technical_revision = "technical_revision",
-}

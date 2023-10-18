@@ -8,6 +8,8 @@ import { MedicalServicesUseCasesModules } from './Use-cases/medicalServices/medi
 import { MedicalServicesController } from './Controllers/medicalservices.controller';
 import { OperatorsController } from './Controllers/operators.controller';
 import { OperatorsUseCasesModules } from './Use-cases/operators/operators.usecase.module';
+import { RepairsUseCasesModules } from './Use-cases/repairs/repairs.usecase.module';
+import { RepairsController } from './Controllers/repairs.controller';
 
 @Module({
   imports: [
@@ -15,13 +17,15 @@ import { OperatorsUseCasesModules } from './Use-cases/operators/operators.usecas
     CareCenterUseCasesModules,
     MedicalServicesUseCasesModules,
     OperatorsUseCasesModules,
+    RepairsUseCasesModules,
     DataServicesModule
   ],
   controllers: [
     EquipmentsController,
     CareCentersController,
     MedicalServicesController,
-    OperatorsController
+    OperatorsController,
+    RepairsController
   ],
   providers: [],
 })
