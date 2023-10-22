@@ -1,7 +1,7 @@
 export interface CreateRepair {
-    date: Date;
-    type: TypeRepair;
     description: string;
+    date: Date;
+    TypeRepair: TypeRepair;
     EquipmentsId: string;
     OperatorId: string;
 }

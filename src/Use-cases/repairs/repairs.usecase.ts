@@ -7,7 +7,7 @@ import { CreateRepair } from "src/Core/DTO/Repairs";
 
 export class RepairsUseCases {
     constructor(
-        @Inject('EquipmentsRepositoryInterface')
+        @Inject('RepairsRepositoryInterface')
         private readonly repository: RepairsRepositoryInterface,
         @Inject('FilterData')
         private readonly filterService: FilterData
