@@ -10,6 +10,7 @@ import { OperatorsController } from './Controllers/operators.controller';
 import { OperatorsUseCasesModules } from './Use-cases/operators/operators.usecase.module';
 import { RepairsUseCasesModules } from './Use-cases/repairs/repairs.usecase.module';
 import { RepairsController } from './Controllers/repairs.controller';
+import { ReportsController } from './Controllers/reports.controller';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { RepairsController } from './Controllers/repairs.controller';
     CareCentersController,
     MedicalServicesController,
     OperatorsController,
-    RepairsController
+    RepairsController,
+    ReportsController
   ],
   providers: [],
 })
