@@ -1,27 +1,129 @@
-// polyfills required by exceljs
-require('core-js/modules/es.promise');
-require('core-js/modules/es.string.includes');
-require('core-js/modules/es.object.assign');
-require('core-js/modules/es.object.keys');
-require('core-js/modules/es.symbol');
-require('core-js/modules/es.symbol.async-iterator');
-require('regenerator-runtime/runtime');
+import MakeReports from 'src/Core/interfaces/Reports';
 
-const ExcelJS = require('exceljs/dist/es5');
-
-export default class ExcelService {
+export default class ExcelService implements MakeReports {
     constructor() {}
 
-    public Init(): any {
-        const workbook = new ExcelJS.WorkBook();
+    public invoke(): Promise<any> {
 
-        workbook.creator = 'Me';
-        workbook.lastModifiedBy = 'Her';
-        workbook.created = new Date(1985, 8, 30);
-        workbook.modified = new Date();
-        workbook.lastPrinted = new Date(2016, 9, 27);
+        const prisma = new PrismaClient();
 
-        const sheet = workbook.addWorksheet('My Sheet');
+        const avancedQuery = this.filterService.createfilter(query);
 
+        const { skip, take, where, orderBy } = avancedQuery;
+        
+        
+        const equipments = await prisma[model].findMany({
+            where: {
+                ...where
+            }
+        })
+
+        console.log(equipments)
+
+        const equipmentsColumns = Object.keys(equipments[0])
+
+        const columns = equipmentsColumns.map((column) => {
+            return {
+                header: column,
+                key: column,
+                width: 20
+            }
+        })
+
+        const formatedColumns = columns.map((column) => {
+            if(column.key === 'CareCenter') {
+                return {
+                    ...column,
+                    header: 'Centro de Salud'
+                }
+            }
+
+            if(column.key === 'name') {
+                return {
+                    ...column,
+                    header: 'Equipo Medico'
+                }
+            }
+
+            if(column.key === 'operative') {
+                return {
+                    ...column,
+                    header: 'Operativo'
+                }
+            }
+
+            if(column.key === 'key') {
+                return {
+                    ...column,
+                    header: 'Codigo VenSalud'
+                }
+            }
+
+            if(column.key === 'brand') {
+                return {
+                    ...column,
+                    header: 'Marca'
+                }
+            }
+
+            return column
+        })
+
+        // console.log(formatedColumns)
+
+        worksheet.columns = [
+            1,1,
+            ...formatedColumns
+        ];
+
+        const rowsEquipments = equipments.map((equipment) => {
+            if(equipment.CareCenter) {
+                return {
+                    ...equipment,
+                    CareCenter: equipment.CareCenter.name
+                }
+            }
+            return equipment
+        })
+
+        const formartedRowsEquipments = rowsEquipments.map((equipment) => {
+            if(equipment.operative) {
+                return {
+                    ...equipment,
+                    operative: 'Si'
+                }
+            }
+
+            return {
+                ...equipment,
+                operative: 'No'
+            }
+        })
+
+        // console.log(formartedRowsEquipments)
+
+        const rows = [
+            ...formartedRowsEquipments
+        ];
+
+        worksheet.addRows(rows);
+
+        // Make and download the file
+        const randomStringGenerator = () => uid(4);
+
+        const random = randomStringGenerator();
+        const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reporte-${random}.xlsx`);
+
+        try {
+            await workbook.xlsx.writeFile(desktopFilePath);
+
+            return response.send({
+                message: 'Excel file created successfully'
+            })
+        } catch (error) {
+            console.log(error);
+
+            throw new BadRequestException(error);
+        }
     }
 }

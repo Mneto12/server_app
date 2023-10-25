@@ -10,7 +10,7 @@ export class RepairsController {
 
     @Get()
     async getRepairs(@Query() pagination: any) {
-        return await this.repairUseCases.getRepair(pagination);
+        return await this.repairUseCases.getRepairs(pagination);
     }
 
     @Get('filter')
