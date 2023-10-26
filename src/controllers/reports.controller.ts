@@ -11,12 +11,14 @@ export class ReportsController {
     ) {}
 
     @Get(':model')
-    @Header('Content-Type', 'text/xlsx')
     async test(
         @Res() response: Response, 
         @Param('model') model: string,
         @Query() query: any
     ): Promise<any> {
 
+        const report = await this.repository.invoke(model, query);
+
+        return report
     }
 }

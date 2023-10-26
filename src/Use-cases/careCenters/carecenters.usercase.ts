@@ -15,4 +15,8 @@ export class CareCenterUseCases {
     async getCareCenter(id: string): Promise<CareCenter> {
         return await this.repository.get(id);
     }
+
+    async getMedicalServicesByCareCenter(id: string): Promise<CareCenter> {
+        return await this.repository.getMedicalServicesByCareCenter(id);
+    }
 }

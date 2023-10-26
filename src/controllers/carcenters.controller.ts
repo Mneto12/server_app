@@ -14,4 +14,9 @@ export class CareCentersController {
     async getCareCenter(@Param('id') id: string) {
         return await this.careCenterUseCases.getCareCenter(id);
     }
+
+    @Get(':id/medicalservices')
+    async getMedicalServicesByCareCenter(@Param('id') id: string) {
+        return await this.careCenterUseCases.getMedicalServicesByCareCenter(id);
+    }
 }

@@ -44,6 +44,7 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
                     name: true,
                     director: true,
                     phoneNumber: true,
+                    typeCenter: true,
                     address: true,
                     MedicalService: {
                         select: {
@@ -64,6 +65,32 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
                     },
                     createdAt: true,
                     updatedAt: true
+                }
+            });
+
+            // @ts-ignore
+            return carecenter;
+        } catch (e) {
+            console.error(e);
+            prisma.$disconnect();
+            return e;    
+        }
+    }
+
+    async getMedicalServicesByCareCenter(id: string): Promise<CareCenter> {
+        const prisma = new PrismaClient();
+        try {
+            const carecenter = await prisma.careCenter.findUnique({
+                where: {
+                    id: id
+                },
+                select: {
+                    MedicalService: {
+                        select: {
+                            id: true,
+                            service: true,
+                        }
+                    },
                 }
             });
 

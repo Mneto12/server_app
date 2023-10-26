@@ -3,7 +3,12 @@ import MakeReports from 'src/Core/interfaces/Reports';
 export default class ExcelService implements MakeReports {
     constructor() {}
 
-    public invoke(): any {
+    public invoke(model: string, query: any): any {
+
+        console.log(model)
+        console.log(query)
+
+        return query
 
         // const prisma = new PrismaClient();
 

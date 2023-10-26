@@ -8,24 +8,43 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
     async getAll(skip: number, take: number): Promise<Equipments[]> {
         const prisma = new PrismaClient();
         try {
-            const equipments = await prisma.equipments.findMany({
-                skip: skip,
-                take: take,
-                select: {
-                    id: true,
-                    name: true,
-                    brand: true,
-                    operative: true,
-                    CareCenter: {
-                        select: {
-                            name: true,
+            // const equipments = await prisma.equipments.findMany({
+            //     skip: skip,
+            //     take: take,
+            //     select: {
+            //         id: true,
+            //         name: true,
+            //         brand: true,
+            //         operative: true,
+            //         CareCenter: {
+            //             select: {
+            //                 name: true,
+            //             }
+            //         }
+            //     }
+            // });
+
+            const [equipments, totalEquipments] = await prisma.$transaction([
+                prisma.equipments.findMany({
+                    skip: skip,
+                    take: take,
+                    select: {
+                        id: true,
+                        name: true,
+                        brand: true,
+                        operative: true,
+                        CareCenter: {
+                            select: {
+                                name: true,
+                            }
                         }
                     }
-                }
-            });
+                }),
+                prisma.equipments.count()
+            ])
 
             // @ts-ignore
-            return equipments;
+            return {equipments, totalEquipments};
         } catch (e) {
             console.error(e);
             prisma.$disconnect();
