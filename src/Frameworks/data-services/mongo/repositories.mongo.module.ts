@@ -4,6 +4,7 @@ import { CareCentersRepository } from "./carecenter.repository.mongo";
 import { MedicalServiceRepository } from "./medicalservice.repository.mongo";
 import { OperatorRepository } from "./operator.repository.mongo";
 import { RepairsRepository } from "./repairs.repository.mongo";
+import {FilterRepositoryMongo} from "./filter.repository.mongo";
 
 @Module({
     providers: [EquipmentRepository, {
@@ -25,6 +26,10 @@ import { RepairsRepository } from "./repairs.repository.mongo";
     RepairsRepository, {
         provide: 'RepairsRepositoryInterface',
         useClass: RepairsRepository,
+    },
+    FilterRepositoryMongo, {
+        provide: 'FilterData',
+        useClass: FilterRepositoryMongo,
     }
 ],
     exports: [
@@ -38,6 +43,8 @@ import { RepairsRepository } from "./repairs.repository.mongo";
         'OperatorsRepositoryInterface',
         RepairsRepository,
         'RepairsRepositoryInterface',
+        FilterRepositoryMongo,
+        'FilterData'
 ]
 })
 

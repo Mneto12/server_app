@@ -2,15 +2,18 @@ import { CreateEquipment } from "src/Core/DTO/Equipment";
 import { Inject } from "@nestjs/common";
 import { Equipments } from "@prisma/client";
 import EquipmentsRepositoryInterface from "src/Core/interfaces/equipments";
-import { EquipmentsParamsDTO, EquipmentParamsConstants } from "src/Core/DTO/EquipmentsFilter";
-import FilterData from "src/Core/interfaces/filter";
+import { EquipmentParamsConstants } from "src/Core/DTO/EquipmentsFilter";
+import {FilterData} from "src/Core/interfaces/filter";
+import {CreateFilterData} from "src/Core/interfaces/filter";
 
 export class EquipmentsUseCases {
     constructor(
         @Inject('EquipmentsRepositoryInterface')
         private readonly repository: EquipmentsRepositoryInterface,
+        @Inject('CreateFilterData')
+        private readonly filterService: CreateFilterData,
         @Inject('FilterData')
-        private readonly filterService: FilterData
+        private readonly filterRepository: FilterData
     ) {}
   
     async getEquipments(pagination: any): Promise<Equipments[]> {
@@ -33,7 +36,7 @@ export class EquipmentsUseCases {
  
         const buildFilterDataAndValidate = this.filterService.createfilter(query);
 
-        return await this.repository.getAllByFilter(buildFilterDataAndValidate);
+        return await this.filterRepository.getAllByFilter('equipments', buildFilterDataAndValidate);
     }
 
     async getEquipment(id: string): Promise<Equipments> {

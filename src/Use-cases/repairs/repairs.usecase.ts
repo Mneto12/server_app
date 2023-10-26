@@ -1,7 +1,7 @@
 import { Inject } from "@nestjs/common";
 import { Repairs } from "@prisma/client";
 import RepairsRepositoryInterface from "src/Core/interfaces/repairs";
-import FilterData from "src/Core/interfaces/filter";
+import {CreateFilterData, FilterData} from "src/Core/interfaces/filter";
 import { RepairParamsConstants } from "src/Core/DTO/RepairFilter";
 import { CreateRepair } from "src/Core/DTO/Repairs";
 
@@ -9,8 +9,10 @@ export class RepairsUseCases {
     constructor(
         @Inject('RepairsRepositoryInterface')
         private readonly repository: RepairsRepositoryInterface,
+        @Inject('CreateFilterData')
+        private readonly filterService: CreateFilterData,
         @Inject('FilterData')
-        private readonly filterService: FilterData
+        private readonly filterRepository: FilterData
     ) {}
   
     async getRepairs(pagination: any): Promise<Repairs[]> {
@@ -33,7 +35,7 @@ export class RepairsUseCases {
  
         const buildFilterDataAndValidate = this.filterService.createfilter(query);
 
-        return await this.repository.getAllByFilter(buildFilterDataAndValidate);
+        return await this.filterRepository.getAllByFilter('repairs', buildFilterDataAndValidate);
     }
 
     async getRepair(id: string): Promise<Repairs> {

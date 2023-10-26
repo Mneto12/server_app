@@ -32,30 +32,6 @@ export class RepairsRepository implements RepairsRepositoryInterface {
         }
     }
 
-    async getAllByFilter(avancedQuery: any): Promise<Repairs[]> {
-        const prisma = new PrismaClient();
-
-        const { skip, take, where, orderBy } = avancedQuery;
-        try {
-            const repairs = await prisma.repairs.findMany({
-                skip: skip,
-                take: take,
-                where: {
-                    ...where
-                },
-                orderBy: {
-                    ...orderBy
-                }
-            });
-
-            return repairs;
-        } catch (e) {
-            console.error(e);
-            prisma.$disconnect();
-            return e;    
-        }
-    }
-
     async get(id: string): Promise<Repairs> {
         const prisma = new PrismaClient();
         try {

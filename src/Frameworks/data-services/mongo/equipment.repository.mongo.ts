@@ -8,22 +8,6 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
     async getAll(skip: number, take: number): Promise<Equipments[]> {
         const prisma = new PrismaClient();
         try {
-            // const equipments = await prisma.equipments.findMany({
-            //     skip: skip,
-            //     take: take,
-            //     select: {
-            //         id: true,
-            //         name: true,
-            //         brand: true,
-            //         operative: true,
-            //         CareCenter: {
-            //             select: {
-            //                 name: true,
-            //             }
-            //         }
-            //     }
-            // });
-
             const [equipments, totalEquipments] = await prisma.$transaction([
                 prisma.equipments.findMany({
                     skip: skip,
@@ -45,30 +29,6 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
 
             // @ts-ignore
             return {equipments, totalEquipments};
-        } catch (e) {
-            console.error(e);
-            prisma.$disconnect();
-            return e;    
-        }
-    }
-
-    async getAllByFilter(avancedQuery: any): Promise<Equipments[]> {
-        const prisma = new PrismaClient();
-
-        const { skip, take, where, orderBy } = avancedQuery;
-        try {
-            const equipments = await prisma.equipments.findMany({
-                skip: skip,
-                take: take,
-                where: {
-                    ...where
-                },
-                orderBy: {
-                    ...orderBy
-                }
-            });
-
-            return equipments;
         } catch (e) {
             console.error(e);
             prisma.$disconnect();

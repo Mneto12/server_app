@@ -3,10 +3,10 @@ import PrismaAdvancedFilteringService from "./filter.service.prisma";
 
 @Module({
     providers: [PrismaAdvancedFilteringService,{
-        provide: 'FilterData',
+        provide: 'CreateFilterData',
         useClass: PrismaAdvancedFilteringService
     }],
-    exports: [PrismaAdvancedFilteringService, 'FilterData']
+    exports: [PrismaAdvancedFilteringService, 'CreateFilterData']
 })
 
 export class FilterServicePrismaModule {}
