@@ -62,6 +62,7 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
                     },
                     CareCenter: {
                         select: {
+                            id: true,
                             name: true,
                             director: true,
                         }
