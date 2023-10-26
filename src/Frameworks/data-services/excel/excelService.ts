@@ -1,134 +1,52 @@
 import MakeReports from 'src/Core/interfaces/Reports';
+import workbookConfig from './WorkBookConfig';
+import { join } from 'path';
 
-export default class ExcelService implements MakeReports {
+export class ExcelService implements MakeReports {
     constructor() {}
 
-    public invoke(model: string, query: any): any {
+    async invoke(data: any): Promise<any> {
 
-        console.log(model)
-        console.log(query)
+        if(data.length === 0) return false
 
-        return query
+        const { workbook, worksheet } = workbookConfig;
 
-        // const prisma = new PrismaClient();
+        const dataColumns = Object.keys(data[0])
 
-        // const avancedQuery = this.filterService.createfilter(query);
+        const columns = dataColumns.map((column) => {
+            return {
+                header: column,
+                key: column,
+                width: 20
+            }
+        })
 
-        // const { skip, take, where, orderBy } = avancedQuery;
-        
-        
-        // const equipments = await prisma[model].findMany({
-        //     where: {
-        //         ...where
-        //     }
-        // })
+        worksheet.columns = [
+            1,1,
+            ...columns
+        ];
 
-        // console.log(equipments)
+        const dataRows = data.map((data) => {
+            return {
+                ...data,
+            }
+        })
 
-        // const equipmentsColumns = Object.keys(equipments[0])
+        const rows = [
+            ...dataRows
+        ];
 
-        // const columns = equipmentsColumns.map((column) => {
-        //     return {
-        //         header: column,
-        //         key: column,
-        //         width: 20
-        //     }
-        // })
-
-        // const formatedColumns = columns.map((column) => {
-        //     if(column.key === 'CareCenter') {
-        //         return {
-        //             ...column,
-        //             header: 'Centro de Salud'
-        //         }
-        //     }
-
-        //     if(column.key === 'name') {
-        //         return {
-        //             ...column,
-        //             header: 'Equipo Medico'
-        //         }
-        //     }
-
-        //     if(column.key === 'operative') {
-        //         return {
-        //             ...column,
-        //             header: 'Operativo'
-        //         }
-        //     }
-
-        //     if(column.key === 'key') {
-        //         return {
-        //             ...column,
-        //             header: 'Codigo VenSalud'
-        //         }
-        //     }
-
-        //     if(column.key === 'brand') {
-        //         return {
-        //             ...column,
-        //             header: 'Marca'
-        //         }
-        //     }
-
-        //     return column
-        // })
-
-        // // console.log(formatedColumns)
-
-        // worksheet.columns = [
-        //     1,1,
-        //     ...formatedColumns
-        // ];
-
-        // const rowsEquipments = equipments.map((equipment) => {
-        //     if(equipment.CareCenter) {
-        //         return {
-        //             ...equipment,
-        //             CareCenter: equipment.CareCenter.name
-        //         }
-        //     }
-        //     return equipment
-        // })
-
-        // const formartedRowsEquipments = rowsEquipments.map((equipment) => {
-        //     if(equipment.operative) {
-        //         return {
-        //             ...equipment,
-        //             operative: 'Si'
-        //         }
-        //     }
-
-        //     return {
-        //         ...equipment,
-        //         operative: 'No'
-        //     }
-        // })
-
-        // // console.log(formartedRowsEquipments)
-
-        // const rows = [
-        //     ...formartedRowsEquipments
-        // ];
-
-        // worksheet.addRows(rows);
+        worksheet.addRows(rows);
 
         // // Make and download the file
-        // const randomStringGenerator = () => uid(4);
+        const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reporte-2.xlsx`);
 
-        // const random = randomStringGenerator();
-        // const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reporte-${random}.xlsx`);
-
-        // try {
-        //     await workbook.xlsx.writeFile(desktopFilePath);
-
-        //     return response.send({
-        //         message: 'Excel file created successfully'
-        //     })
-        // } catch (error) {
-        //     console.log(error);
-
-        //     throw new BadRequestException(error);
-        // }
+        try {
+            await workbook.xlsx.writeFile(desktopFilePath);
+            return true
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
     }
 }

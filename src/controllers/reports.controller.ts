@@ -3,11 +3,17 @@ import { Response } from "express";
 import { BadRequestException } from "@nestjs/common";
 import { Inject } from "@nestjs/common";
 import MakeReports from "src/Core/interfaces/Reports";
+import { CreateFilterData, FilterData } from "src/Core/interfaces/filter";
 
 @Controller("api/reports/excel")
 export class ReportsController {
     constructor(
-        @Inject('MakeReports') private readonly repository: MakeReports
+        @Inject('MakeReports') 
+        private readonly repository: MakeReports,
+        @Inject('CreateFilterData')
+        private readonly filterService: CreateFilterData,
+        @Inject('FilterData')
+        private readonly filterRepository: FilterData
     ) {}
 
     @Get(':model')
@@ -17,8 +23,16 @@ export class ReportsController {
         @Query() query: any
     ): Promise<any> {
 
-        const report = await this.repository.invoke(model, query);
+        const avancedQuery = this.filterService.createfilter(query);
 
-        return report
+        const data = await this.filterRepository.getAllByFilter(model, avancedQuery);
+
+        const report = await this.repository.invoke(data);
+
+        console.log(report);
+
+        return response.send({
+                    message: 'Excel file created successfully'
+        })
     }
 }

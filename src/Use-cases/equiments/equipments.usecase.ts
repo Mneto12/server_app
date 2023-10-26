@@ -3,8 +3,7 @@ import { Inject } from "@nestjs/common";
 import { Equipments } from "@prisma/client";
 import EquipmentsRepositoryInterface from "src/Core/interfaces/equipments";
 import { EquipmentParamsConstants } from "src/Core/DTO/EquipmentsFilter";
-import {FilterData} from "src/Core/interfaces/filter";
-import {CreateFilterData} from "src/Core/interfaces/filter";
+import {FilterData, CreateFilterData} from "src/Core/interfaces/filter";
 
 export class EquipmentsUseCases {
     constructor(
