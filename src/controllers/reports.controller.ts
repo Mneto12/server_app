@@ -29,10 +29,9 @@ export class ReportsController {
 
         const report = await this.repository.invoke(data);
 
-        console.log(report);
-
         return response.send({
-                    message: 'Excel file created successfully'
+            message: 'Excel file created successfully',
+            file: report
         })
     }
 }
