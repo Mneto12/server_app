@@ -1,22 +1,45 @@
 import MakeReports from 'src/Core/interfaces/Reports';
-import workbookConfig from './WorkBookConfig';
+import WorkBookConfig from './workbookconfig';
 import { join } from 'path';
 import { TranslateHeaderWorksheet } from 'src/Helpers/TranslateHeaderWorksheet';
+import * as ExcelJS from 'exceljs';
+import { uid } from "uid";
 
 export class ExcelService implements MakeReports {
     constructor() {}
 
     async invoke(data: any): Promise<any> {
-        const { workbook } = workbookConfig;
+        const config = WorkBookConfig.config();
+
+        const { workbook, worksheet } = config;
+
 
         if(data.length === 0) return false
 
-        this.makeFile(data)
+        worksheet.name = `Equipos`
+
+        const randomStringGenerator = () => uid(4);
+
+        const random = randomStringGenerator();
+
+        this.makeFile(data, worksheet)
+
+        worksheet.getRows(1, 1).forEach((row) => {
+            row.getCell(1).fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FF0000FF' }
+            }
+
+            console.log(row.values)
+        }
+        );
         // Make and download the file
-        const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reportes-${data[0].id}.xlsx`);
+        const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reportes-${random}.xlsx`);
 
         try {
             await workbook.xlsx.writeFile(desktopFilePath);
+
             return true
         } catch (error) {
             console.error(error);
@@ -24,8 +47,7 @@ export class ExcelService implements MakeReports {
         }
     }
 
-    private makeFile(data: any) {
-        const { worksheet } = workbookConfig;
+    private makeFile(data: any, worksheet: ExcelJS.Worksheet) {
 
         const filterData = this.filterData(data)
 
@@ -75,8 +97,6 @@ export class ExcelService implements MakeReports {
                 if(key === 'operative') {
                     object[headersInSpanish[index]] = data[key] ? 'Operativo' : 'No operativo';
                 }
-
-                console.log(object)
                 return object;
             }, {});
         })

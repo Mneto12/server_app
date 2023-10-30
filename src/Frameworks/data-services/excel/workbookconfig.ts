@@ -1,21 +1,17 @@
 import * as ExcelJS from 'exceljs';
 
-const workbook = new ExcelJS.Workbook();
+export default class WorkBookConfig {
 
-workbook.creator = 'Vensalud';
-const worksheet = workbook.addWorksheet('Equipos medicos');
-
-// add image to workbook by filename
-// const imageId1 = workbook.addImage({
-//     filename: 'C:/Users/migue/Desktop/home2.JPEG',
-//     extension: 'jpeg',
-// });
-
-// worksheet.addImage(imageId1, 'B2:D6');
-
-const workbookConfig = {
-    workbook,
-    worksheet
+    public static config() {
+        const workbook = new ExcelJS.Workbook();
+        workbook.creator = 'Vensalud';
+        const worksheet = workbook.addWorksheet('Pagina 1');
+        
+        const workbookConfig = {
+            workbook,
+            worksheet
+        }
+        
+        return workbookConfig;
+    }
 }
-
-export default workbookConfig;
