@@ -18,3 +18,9 @@ export const spanishHeaders = {
     'Servicio medico': 'service',
 
 }
+
+export const spanishModels = {
+    'Equipos Medicos': 'equipments',
+    'Centros de Salud': 'CareCenter',
+    'Servicios Medicos': 'medicalService',
+}

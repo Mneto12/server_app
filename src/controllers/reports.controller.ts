@@ -27,7 +27,7 @@ export class ReportsController {
 
         const data = await this.filterRepository.getAllByFilter(model, avancedQuery);
 
-        const report = await this.repository.invoke(data);
+        const report = await this.repository.invoke(data, model);
 
         return response.send({
             message: 'Excel file created successfully',

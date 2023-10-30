@@ -1,3 +1,3 @@
 export default interface MakeReports {
-    invoke(data: any): Promise<any>;
+    invoke(data: any, model: string): Promise<any>;
 }

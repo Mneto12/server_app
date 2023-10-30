@@ -1,26 +1,24 @@
 import MakeReports from 'src/Core/interfaces/Reports';
 import WorkBookConfig from './workbookconfig';
 import { join } from 'path';
-import { TranslateHeaderWorksheet } from 'src/Helpers/TranslateHeaderWorksheet';
+import { TranslateWorksheet } from 'src/Helpers/TranslateWorksheet';
 import * as ExcelJS from 'exceljs';
-import { uid } from "uid";
 
 export class ExcelService implements MakeReports {
     constructor() {}
 
-    async invoke(data: any): Promise<any> {
+    async invoke(data: any, model: string): Promise<any> {
+        if(data.length === 0) return false
+
+        console.log(model)
+
         const config = WorkBookConfig.config();
 
         const { workbook, worksheet } = config;
 
+        const nameWorksheet = TranslateWorksheet.typeModel(model);
 
-        if(data.length === 0) return false
-
-        worksheet.name = `Equipos`
-
-        const randomStringGenerator = () => uid(4);
-
-        const random = randomStringGenerator();
+        worksheet.name = nameWorksheet
 
         this.makeFile(data, worksheet)
 
@@ -68,12 +66,18 @@ export class ExcelService implements MakeReports {
             })
         })
         // Make and download the file
-        const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reportes-${random}.xlsx`);
+        const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reporte-${nameWorksheet}.xlsx`);
+
+        // TODO: Descomentar para probar el buffer
+        // const buffer = await workbook.xlsx.writeBuffer();
 
         try {
             await workbook.xlsx.writeFile(desktopFilePath);
 
             return true
+
+            // TODO: Descomentar para probar el buffer
+            // return buffer
         } catch (error) {
             console.error(error);
             return false;
@@ -86,12 +90,11 @@ export class ExcelService implements MakeReports {
 
         const dataColumns = Object.keys(filterData[0])
         
-        const headersInSpanish = TranslateHeaderWorksheet.type(dataColumns)
+        const headersInSpanish = TranslateWorksheet.typeHeader(dataColumns)
 
         const dataWithSpanishHeaders = this.makeHeaders(filterData, headersInSpanish)
         
         const columns = headersInSpanish.map((column) => {
-            console.log('Aqui',column)
             return {
                 header: column,
                 key: column,
@@ -130,6 +133,12 @@ export class ExcelService implements MakeReports {
                 object[headersInSpanish[index]] = data[key];
                 if(key === 'operative') {
                     object[headersInSpanish[index]] = data[key] ? 'Operativo' : 'No operativo';
+                }
+
+                if(key === 'condition') {
+                    object[headersInSpanish[index]] = data[key] === 'good' ? 
+                        'Bueno' : object[headersInSpanish[index]] = data[key] === 'bad' ?
+                        'Malo': 'Regular';
                 }
                 return object;
             }, {});
