@@ -25,15 +25,48 @@ export class ExcelService implements MakeReports {
         this.makeFile(data, worksheet)
 
         worksheet.getRows(1, 1).forEach((row) => {
-            row.getCell(1).fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FF0000FF' }
-            }
+            row.eachCell((cell) => {
+                cell.alignment = {
+                    vertical: 'middle',
+                    horizontal: 'center',
+                }
+                cell.fill = {
+                    type: 'pattern',
+                    pattern: 'solid',
+                    fgColor: { argb: 'ff949494' }
+                }
+                cell.font = {
+                    bold: true,
+                    size: 12
+                }
+            })
+        });
 
-            console.log(row.values)
-        }
-        );
+        worksheet.eachRow((row, index) => {
+            row.eachCell((cell) => {
+                if(index !== 1) {
+                    cell.alignment = {
+                        vertical: 'middle',
+                        horizontal: 'center',
+                        wrapText: true
+                    }
+                    cell.font = {
+                        size: 12
+                    }
+                }
+            })
+        })
+
+        worksheet.eachColumnKey((column, index) => {
+            worksheet.getColumn(index).eachCell((cell) => {
+                cell.border = {
+                    top: { style: 'thin' },
+                    left: { style: 'thin' },
+                    bottom: { style: 'thin' },
+                    right: { style: 'thin' }
+                }
+            })
+        })
         // Make and download the file
         const desktopFilePath = join('C:\\Users\\migue\\Desktop', `Reportes-${random}.xlsx`);
 
@@ -58,10 +91,11 @@ export class ExcelService implements MakeReports {
         const dataWithSpanishHeaders = this.makeHeaders(filterData, headersInSpanish)
         
         const columns = headersInSpanish.map((column) => {
+            console.log('Aqui',column)
             return {
                 header: column,
                 key: column,
-                width: 10
+                width: column === 'Nombre' ? 50 : 20
             }
         })
 
