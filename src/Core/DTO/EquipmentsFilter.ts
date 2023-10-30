@@ -21,7 +21,7 @@ export const EquipmentParamsConstants = [
     'key',
     'nationalKey',
     'status',
-    'typeRepair',
+    'operative',
     'condition',
     'CareCenterId',
     'MedicalServiceId',

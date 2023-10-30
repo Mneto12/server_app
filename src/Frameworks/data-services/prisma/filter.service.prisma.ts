@@ -59,7 +59,7 @@ export default class PrismaAdvancedFilteringService implements CreateFilterData 
       const firstChart = value[0]
       const lastChart = value[value.length - 1]
 
-      const cleanValue = value.replace(/^\*|\*$/g, '');
+      let cleanValue = value.replace(/^\*|\*$/g, '');
 
       console.log('Aqui',cleanValue);
 
@@ -71,6 +71,10 @@ export default class PrismaAdvancedFilteringService implements CreateFilterData 
 
       if (firstChart !== '*' && lastChart !== '*') {
         clausule = 'equals';
+      }
+
+      if(column === 'operative') {
+        value === 'true' ? cleanValue = true : cleanValue = false;
       }
 
       const queryObj = {
