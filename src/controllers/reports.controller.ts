@@ -1,6 +1,5 @@
-import { Controller, Get, Res, Header, Param, Query } from "@nestjs/common/decorators";
+import { Controller, Post, Res, Param, Query } from "@nestjs/common/decorators";
 import { Response } from "express";
-import { BadRequestException } from "@nestjs/common";
 import { Inject } from "@nestjs/common";
 import MakeReports from "src/Core/interfaces/Reports";
 import { CreateFilterData, FilterData } from "src/Core/interfaces/filter";
@@ -16,7 +15,7 @@ export class ReportsController {
         private readonly filterRepository: FilterData
     ) {}
 
-    @Get(':model')
+    @Post(':model')
     async test(
         @Res() response: Response, 
         @Param('model') model: string,
