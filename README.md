@@ -1,4 +1,6 @@
-# Server app with NestJS and clean arquitecture
+<img src="https://github.com/Mneto12/server_app/assets/49901710/aead7360-f110-47d2-8328-bcfb72719e20"  width="200" height="200">
+
+# Server app VenSalud
 
 ## Explanation
 
