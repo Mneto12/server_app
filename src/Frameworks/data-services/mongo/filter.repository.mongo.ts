@@ -1,30 +1,30 @@
-import { PrismaClient } from "@prisma/client";
-import {FilterData} from "src/Core/interfaces/filter";
+import { PrismaClient } from '@prisma/client';
+import { FilterData } from 'src/Core/interfaces/filter';
 
 export class FilterRepositoryMongo implements FilterData {
-    constructor() {}
+  constructor() {}
 
-    async getAllByFilter(model: string , avancedQuery: any): Promise<[]> {
-        const prisma = new PrismaClient();
+  async getAllByFilter(model: string, avancedQuery: any): Promise<[]> {
+    const prisma = new PrismaClient();
 
-        const { skip, take, where, orderBy } = avancedQuery;
-        try {
-            const data = await prisma[model].findMany({
-                skip: skip,
-                take: take,
-                where: {
-                    ...where
-                },
-                orderBy: {
-                    ...orderBy
-                }
-            });
+    const { skip, take, where, orderBy } = avancedQuery;
+    try {
+      const data = await prisma[model].findMany({
+        skip: skip,
+        take: take,
+        where: {
+          ...where,
+        },
+        orderBy: {
+          ...orderBy,
+        },
+      });
 
-            return data;
-        } catch (e) {
-            console.error(e);
-            await prisma.$disconnect();
-            throw new Error('An error occurred while processing the request');
-        }
+      return data;
+    } catch (e) {
+      console.error(e);
+      await prisma.$disconnect();
+      throw new Error('An error occurred while processing the request');
     }
+  }
 }

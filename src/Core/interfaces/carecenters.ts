@@ -1,10 +1,10 @@
-import { CareCenter } from "@prisma/client";
+import { CareCenter } from '@prisma/client';
 
 export default interface CareCentersRepositoryInterface {
-    getAll(): Promise<CareCenter[]>;
+  getAll(): Promise<CareCenter[]>;
 
-    get(id: string): Promise<CareCenter>;
+  get(id: string): Promise<CareCenter>;
 
-    // TODO: Refactor this name
-    getMedicalServicesByCareCenter(id: string): Promise<CareCenter>;
+  // TODO: Refactor this name
+  getMedicalServicesByCareCenter(id: string): Promise<CareCenter>;
 }

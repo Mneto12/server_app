@@ -1,22 +1,22 @@
-import { Inject } from "@nestjs/common";
-import { CareCenter } from "@prisma/client";
-import CareCentersRepositoryInterface from "src/Core/interfaces/carecenters";
+import { Inject } from '@nestjs/common';
+import { CareCenter } from '@prisma/client';
+import CareCentersRepositoryInterface from 'src/Core/interfaces/carecenters';
 
 export class CareCenterUseCases {
-    constructor(
-        @Inject('CareCentersRepositoryInterface')
-        private readonly repository: CareCentersRepositoryInterface
-    ) {}
-  
-    async getCareCenters(): Promise<CareCenter[]> {
-        return await this.repository.getAll();
-    }
+  constructor(
+    @Inject('CareCentersRepositoryInterface')
+    private readonly repository: CareCentersRepositoryInterface,
+  ) {}
 
-    async getCareCenter(id: string): Promise<CareCenter> {
-        return await this.repository.get(id);
-    }
+  async getCareCenters(): Promise<CareCenter[]> {
+    return await this.repository.getAll();
+  }
 
-    async getMedicalServicesByCareCenter(id: string): Promise<CareCenter> {
-        return await this.repository.getMedicalServicesByCareCenter(id);
-    }
+  async getCareCenter(id: string): Promise<CareCenter> {
+    return await this.repository.get(id);
+  }
+
+  async getMedicalServicesByCareCenter(id: string): Promise<CareCenter> {
+    return await this.repository.getMedicalServicesByCareCenter(id);
+  }
 }

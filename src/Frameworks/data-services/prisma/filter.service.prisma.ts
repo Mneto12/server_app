@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CreateFilterData } from 'src/Core/interfaces/filter';
 
 @Injectable()
-export default class PrismaAdvancedFilteringService implements CreateFilterData {
+export default class PrismaAdvancedFilteringService
+  implements CreateFilterData
+{
   constructor() {}
 
   public createfilter(query: Object[]): any {

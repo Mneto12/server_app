@@ -1,13 +1,13 @@
-import { Repairs } from "@prisma/client";
+import { Repairs } from '@prisma/client';
 
 export default interface RepairsRepositoryInterface {
-    getAll(skip: number, take: number): Promise<Repairs[]>;
+  getAll(skip: number, take: number): Promise<Repairs[]>;
 
-    get(id: string): Promise<Repairs>;
+  get(id: string): Promise<Repairs>;
 
-    create(repair: any): Promise<Repairs>;
+  create(repair: any): Promise<Repairs>;
 
-    update(id: string, repair: Partial<Repairs>): Promise<Repairs | false>;
+  update(id: string, repair: Partial<Repairs>): Promise<Repairs | false>;
 
-    delete(id: string): Promise<true | false>;
+  delete(id: string): Promise<true | false>;
 }

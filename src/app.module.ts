@@ -19,7 +19,7 @@ import { ReportsController } from './Controllers/reports.controller';
     MedicalServicesUseCasesModules,
     OperatorsUseCasesModules,
     RepairsUseCasesModules,
-    DataServicesModule
+    DataServicesModule,
   ],
   controllers: [
     EquipmentsController,
@@ -27,7 +27,7 @@ import { ReportsController } from './Controllers/reports.controller';
     MedicalServicesController,
     OperatorsController,
     RepairsController,
-    ReportsController
+    ReportsController,
   ],
   providers: [],
 })
