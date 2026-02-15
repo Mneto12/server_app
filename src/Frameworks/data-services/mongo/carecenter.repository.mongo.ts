@@ -23,7 +23,6 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
         },
       });
 
-      // @ts-ignore
       return carecenter;
     } catch (e) {
       console.error(e);
@@ -68,7 +67,6 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
         },
       });
 
-      // @ts-ignore
       return carecenter;
     } catch (e) {
       console.error(e);
@@ -94,7 +92,6 @@ export class CareCentersRepository implements CareCentersRepositoryInterface {
         },
       });
 
-      // @ts-ignore
       return carecenter;
     } catch (e) {
       console.error(e);

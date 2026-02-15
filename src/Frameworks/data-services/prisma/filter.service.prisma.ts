@@ -7,8 +7,8 @@ export default class PrismaAdvancedFilteringService
 {
   constructor() {}
 
-  public createfilter(query: Object[]): any {
-    let where = { AND: [] };
+  public createfilter(query: object[]): any {
+    const where = { AND: [] };
     let orderBy = {};
 
     const columns = Object.keys(query);
@@ -84,13 +84,13 @@ export default class PrismaAdvancedFilteringService
   }
 
   private _orderByFilter(row: any): any {
-    let { value } = row;
+    const { value } = row;
 
     const regex = /^(?!.*,)[^,]*\b(?:asc|desc)\b[^,]*(?!,.*,$).*$/i;
 
     if (regex.test(value)) return {};
 
-    let items = value.split(',');
+    const items = value.split(',');
 
     const queryObj = {
       [items[0]]: items[1],
@@ -103,12 +103,12 @@ export default class PrismaAdvancedFilteringService
     const { column, value } = row;
 
     if (value.length === 21) {
-      let Range = value.split(',');
+      const Range = value.split(',');
 
       if (Range.length !== 2) throw new Error('Invalid Range Date');
 
-      let firstDate = new Date(Range[0]);
-      let secondDate = new Date(Range[1]);
+      const firstDate = new Date(Range[0]);
+      const secondDate = new Date(Range[1]);
 
       if (isNaN(firstDate.getTime()) || isNaN(secondDate.getTime()))
         throw new Error('Invalid Date');
@@ -124,7 +124,7 @@ export default class PrismaAdvancedFilteringService
 
       return queryObj;
     } else if (value.length === 10) {
-      let date = new Date(value);
+      const date = new Date(value);
 
       if (isNaN(date.getTime())) throw new Error('Invalid Date');
 
