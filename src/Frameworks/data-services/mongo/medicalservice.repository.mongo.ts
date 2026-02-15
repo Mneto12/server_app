@@ -12,8 +12,8 @@ export class MedicalServiceRepository implements MedicalServicesRepositoryInterf
             return medicalService;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -43,8 +43,8 @@ export class MedicalServiceRepository implements MedicalServicesRepositoryInterf
             return medicalService;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 }

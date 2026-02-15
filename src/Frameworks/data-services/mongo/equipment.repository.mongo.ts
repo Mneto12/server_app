@@ -31,8 +31,8 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             return {equipments, totalEquipments};
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -84,8 +84,8 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             return equipment;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -99,8 +99,8 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             return newEquipment;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -123,8 +123,8 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             return updatedEquipment;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -142,8 +142,8 @@ export class EquipmentRepository implements EquipmentsRepositoryInterface {
             return true;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 }
