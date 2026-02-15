@@ -27,8 +27,8 @@ export class RepairsRepository implements RepairsRepositoryInterface {
             return repairs;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -70,8 +70,8 @@ export class RepairsRepository implements RepairsRepositoryInterface {
             return repair;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -85,8 +85,8 @@ export class RepairsRepository implements RepairsRepositoryInterface {
             return newRepair;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -109,8 +109,8 @@ export class RepairsRepository implements RepairsRepositoryInterface {
             return updatedRepairs;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 
@@ -128,8 +128,8 @@ export class RepairsRepository implements RepairsRepositoryInterface {
             return true;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 }

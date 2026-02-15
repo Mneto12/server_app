@@ -23,8 +23,8 @@ export class FilterRepositoryMongo implements FilterData {
             return data;
         } catch (e) {
             console.error(e);
-            prisma.$disconnect();
-            return e;    
+            await prisma.$disconnect();
+            throw new Error('An error occurred while processing the request');
         }
     }
 }
